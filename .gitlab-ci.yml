@@ -18,9 +18,6 @@ e2e-tests:
 
   # passos do job (equivalente ao "steps")
   script:
-    # instalação do Yarn
-    - npm install -g yarn
-
     # instalação das dependências
     - yarn
 
