@@ -1,0 +1,38 @@
+# CI de Nível 01 - Disparo Manual através de clique
+
+# gatilho manual - só roda quando clicar em "Run pipeline" na interface do GitLab
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+# imagem Docker que já vem com Node instalado
+image: node:24
+
+# etapas da pipeline (equivalente aos "jobs" do GitHub, mas aqui é a ordem de execução)
+stages:
+  - test
+
+# nome do job
+e2e-tests:
+  stage: test
+
+  # passos do job (equivalente ao "steps")
+  script:
+    # instalação do Yarn
+    - npm install -g yarn
+
+    # instalação das dependências
+    - yarn
+
+    # instalação dos Browsers do Playwright
+    - yarn playwright install --with-deps
+
+    # executar os testes e2e
+    - yarn run e2e
+
+  # salvar relatório de testes (roda mesmo se o job falhar)
+  artifacts:
+    when: always
+    paths:
+      - playwright-report/
+    name: 'Relatório de Testes E2E'
