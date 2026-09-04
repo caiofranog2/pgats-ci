@@ -54,7 +54,7 @@ jobs:
         if: ${{ always() }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBKOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: seu-canal
           SLACK_COLOR: ${{ job.status }}
           SLACK_TITLE: 'Resultado da Pipeline'
