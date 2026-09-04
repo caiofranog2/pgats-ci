@@ -49,3 +49,14 @@ jobs:
         with:
           path: ./playwright-report
           name: Relatório de Testes E2E
+      # notificação no slack
+      - name: Notificando no slack
+        if: ${{ always() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBKOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: seu-canal
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_TITLE: 'Resultado da Pipeline'
+          SLACK_MESSAGE: 'Pipeline finalizada com status: ${{ job.status }}'
+          SLACK_USERNAME: CI Bot
